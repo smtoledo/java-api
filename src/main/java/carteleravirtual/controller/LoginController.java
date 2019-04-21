@@ -28,18 +28,13 @@ public class LoginController {
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/auth")
     public ResponseEntity<?> authenticate(@RequestBody UsernaneAndPassword userpass) {
-
-        if(isLoginSuccess(userpass.getUsername(), userpass.getPassword())) {
+    	Usuario u = usuarioDAO.recuperar(userpass.getUsername());    	
+        if(u != null && u.getPassword().equals(userpass.getPassword())) {        	
             String token = tokenServices.generateToken(userpass.getUsername(), EXPIRATION_IN_SEC);
-            return ResponseEntity.ok(new Credentials(token, EXPIRATION_IN_SEC, userpass.getUsername()));
+            return ResponseEntity.ok(new Credentials(token, EXPIRATION_IN_SEC, u.getUsername(), u.getPerfil()));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario o password incorrecto");
         }
-    }
-
-    private boolean isLoginSuccess(String username, String password) {
-        Usuario u = usuarioDAO.recuperar(username);
-        return (u != null && u.getPassword().equals(password));
     }
 
 }
