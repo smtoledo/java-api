@@ -100,7 +100,7 @@ public class Publicacion implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "publicación '"+this.titulo+"' { cartelera: "+this.cartelera.getTitulo()
+		return "publicacion '"+this.titulo+"' { cartelera: "+this.cartelera.getTitulo()
 		+", contenido: "+this.contenido+", autor: "+this.autor.getUsername()+", ult.mod: "+this.ultimaModificacion+" }";
 	}
 }
