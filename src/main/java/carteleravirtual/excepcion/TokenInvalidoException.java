@@ -6,6 +6,6 @@ public class TokenInvalidoException extends Exception {
 
 	@Override
     public String getMessage() {
-        return "El token no es válido";
+        return "El token no es valido";
     }
 }
