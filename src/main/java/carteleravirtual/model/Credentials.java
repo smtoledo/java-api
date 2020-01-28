@@ -1,16 +1,18 @@
 package carteleravirtual.model;
 
+import carteleravirtual.common.Perfil;
+
 public class Credentials {
 
     private String token;
     private int exp;
     private String username;
-    private String role;
+    private Perfil role;
     
     public Credentials() {
     }
 
-    public Credentials(String token, int exp, String username, String role) {
+    public Credentials(String token, int exp, String username, Perfil role) {
         this.token = token;
         this.exp = exp;
         this.username = username;
@@ -41,11 +43,11 @@ public class Credentials {
         this.username = username;
     }
 
-	public String getRole() {
+	public Perfil getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(Perfil role) {
 		this.role = role;
 	}
     

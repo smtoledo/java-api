@@ -5,14 +5,20 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import carteleravirtual.common.Perfil;
 
 @Entity
+@Table(name = "usuario")
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -37,7 +43,8 @@ public class Usuario implements Serializable {
 	@Column(name="notif_alt_mail")
 	private String mailNotificacionAlternativa;
 	
-	private String perfil;
+	@Enumerated(EnumType.STRING)
+	private Perfil perfil;
 	
 	@ManyToMany
 	@JoinTable(name="alumno_carteleras",
@@ -147,11 +154,11 @@ public class Usuario implements Serializable {
 		this.mailNotificacionAlternativa = mailNotificacionAlternativa;
 	}
 
-	public String getPerfil() {
+	public Perfil getPerfil() {
 		return perfil;
 	}
 
-	public void setPerfil(String perfil) {
+	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}
 

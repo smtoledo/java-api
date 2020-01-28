@@ -9,13 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import carteleravirtual.common.Perfil;
 import carteleravirtual.common.TokenValidator;
 import carteleravirtual.dao.CarteleraVirtualDAO;
 import carteleravirtual.dao.UsuarioDAO;
 import carteleravirtual.dto.CarteleraDTO;
 import carteleravirtual.model.CarteleraVirtual;
 import carteleravirtual.model.Usuario;
-import carteleravirtual.utils.Rol;
 
 @Service
 public class CarteleraService {
@@ -31,7 +31,7 @@ public class CarteleraService {
 
 	public ResponseEntity<?> crearCartelera(CarteleraDTO carteleraDto, String token) {
 		Usuario usuario = usuarioDao.recuperarPorId(tokenValidator.parseIdUsuario(token));
-		if (usuario != null && usuario.getPerfil().equals(Rol.ADMINISTRADOR.getName())) {
+		if (usuario != null && usuario.getPerfil().equals(Perfil.ADMINISTRADOR)) {
 			CarteleraVirtual cartelera = carteleraDAO.persistir(modelmapper.map(carteleraDto, CarteleraVirtual.class));
 			return new ResponseEntity<>(modelmapper.map(cartelera, CarteleraDTO.class),HttpStatus.OK);
 		}else {
@@ -50,5 +50,9 @@ public class CarteleraService {
 				.map(cartelera -> modelmapper.map(cartelera, CarteleraDTO.class)).collect(Collectors.toList());
 		return new ResponseEntity<>(carteleraDtos.stream().filter(cartelera -> cartelera.getId() == id.intValue()).findFirst().orElse(null), HttpStatus.OK);
     }
+
+	public ResponseEntity<?> recuperarTiposCartelera() {
+		return null;
+	}
 
 }

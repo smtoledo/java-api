@@ -29,6 +29,13 @@ public class CarteleraController {
     	return carteleraService.recuperarCarteleras();
     }
     
+    @GetMapping
+    @CrossOrigin(origins = "*")
+    @ResponseBody
+    public ResponseEntity<?> recuperarTiposCartelera(){
+    	return carteleraService.recuperarTiposCartelera();
+    }
+    
     @GetMapping(path = "/{id}")
     public ResponseEntity<?> recuperarCartelerasPorId(@PathVariable("id") Long id) {
         return carteleraService.recuperarCarteleras(id);
