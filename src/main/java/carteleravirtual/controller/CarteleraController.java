@@ -16,32 +16,31 @@ import carteleravirtual.dto.CarteleraDTO;
 import carteleravirtual.service.CarteleraService;
 
 @RestController
-@RequestMapping("/carteleras")
 public class CarteleraController {
 
 	@Autowired
 	CarteleraService carteleraService;
 
-    @GetMapping
+    @GetMapping("/carteleras")
     @CrossOrigin(origins = "*")
     @ResponseBody
     public ResponseEntity<?> recuperarCarteleras(){
     	return carteleraService.recuperarCarteleras();
     }
     
-    @GetMapping
+    @GetMapping("/tipos_cartelera")
     @CrossOrigin(origins = "*")
     @ResponseBody
     public ResponseEntity<?> recuperarTiposCartelera(){
     	return carteleraService.recuperarTiposCartelera();
     }
     
-    @GetMapping(path = "/{id}")
+    @GetMapping("/carteleras/{id}")
     public ResponseEntity<?> recuperarCartelerasPorId(@PathVariable("id") Long id) {
         return carteleraService.recuperarCarteleras(id);
     }
 
-    @PostMapping
+    @PostMapping("/carteleras")
     @CrossOrigin(origins = "*")
 	@ResponseBody
 	public ResponseEntity<?> crearCartelera(@RequestHeader("token") String token, 

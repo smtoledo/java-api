@@ -2,6 +2,7 @@ package carteleravirtual.dao.impl;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
@@ -30,20 +31,17 @@ public class UsuarioDAOHibernateJPA<T> extends GenericDAOHibernateJPA<Usuario> i
 	
 	@Override
 	public Usuario recuperar(String username) {
-		Query consulta = this.getEntityManager()
-				.createQuery("select u from Usuario u where	u.username=?1");
-		consulta.setParameter(1, username);
-		try {
-			return (Usuario) consulta.getSingleResult();
-		} catch (NoResultException e) {
-			return null;
-		}
+		TypedQuery<Usuario> consulta = this.getEntityManager()
+				.createQuery("SELECT u FROM Usuario u WHERE u.username = :user", Usuario.class);
+		consulta.setParameter("user", username);
+		Usuario usuario = consulta.getResultList().stream().findFirst().orElse(null); 
+		return usuario;
 	}
 	
 	@Override
 	public Usuario recuperarPorId(int id) {
 		Query consulta = this.getEntityManager()
-				.createQuery("select u from Usuario u where	u.id=?1");
+				.createQuery("select u from Usuario u where u.id = ?1");
 		consulta.setParameter(1, id);
 		try {
 			return (Usuario) consulta.getSingleResult();

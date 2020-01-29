@@ -5,8 +5,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +41,6 @@ public class Usuario implements Serializable {
 	@Column(name="notif_alt_mail")
 	private String mailNotificacionAlternativa;
 	
-	@Enumerated(EnumType.STRING)
 	private Perfil perfil;
 	
 	@ManyToMany
