@@ -22,13 +22,13 @@ public class UsuarioController {
 	UsuarioService usuarioService;	
 
 	@CrossOrigin(origins = "*")
-    @PostMapping("/usuarios")
+    @PostMapping("/usuarios") //no persiste el perfil
     public ResponseEntity<?> crearUsuario(@RequestBody UsuarioDTO usuario){
         return usuarioService.crearUsuario(usuario);
     }
 
 	@CrossOrigin(origins = "*")
-    @GetMapping("/usuarios/{id}")
+    @GetMapping("/usuarios/{id}") //ok
     public ResponseEntity<?> recuperarUsuario(@PathVariable("id") String idUsuario){
     	return usuarioService.recuperarUsuario(idUsuario);
     }

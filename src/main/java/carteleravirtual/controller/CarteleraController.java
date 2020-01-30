@@ -7,31 +7,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import carteleravirtual.common.Perfil;
 import carteleravirtual.dto.CarteleraDTO;
 import carteleravirtual.service.CarteleraService;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CarteleraController {
 
 	@Autowired
 	CarteleraService carteleraService;
 
     @GetMapping("/carteleras")
-    @CrossOrigin(origins = "*")
     @ResponseBody
     public ResponseEntity<?> recuperarCarteleras(){
     	return carteleraService.recuperarCarteleras();
     }
     
     @GetMapping("/tipos_cartelera")
-    @CrossOrigin(origins = "*")
     @ResponseBody
-    public ResponseEntity<?> recuperarTiposCartelera(){
+    public Perfil[] recuperarTiposCartelera(){
     	return carteleraService.recuperarTiposCartelera();
     }
     
@@ -41,11 +39,9 @@ public class CarteleraController {
     }
 
     @PostMapping("/carteleras")
-    @CrossOrigin(origins = "*")
 	@ResponseBody
-	public ResponseEntity<?> crearCartelera(@RequestHeader("token") String token, 
-			@RequestBody CarteleraDTO carteleraDTO){
-		return carteleraService.crearCartelera(carteleraDTO, token);
+	public ResponseEntity<?> crearCartelera(@RequestBody CarteleraDTO carteleraDTO){
+		return carteleraService.crearCartelera(carteleraDTO);
     }
     	
 }
