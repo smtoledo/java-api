@@ -2,33 +2,30 @@ package carteleravirtual.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import carteleravirtual.common.Perfil;
 import carteleravirtual.common.TokenValidator;
 import carteleravirtual.dao.UsuarioDAO;
 import carteleravirtual.dto.UsuarioDTO;
-import carteleravirtual.excepcion.TokenInvalidoException;
 import carteleravirtual.model.Usuario;
 
 @Service
 public class UsuarioService {
 	
 	@Autowired
-	UsuarioDAO usuarioDao;
-	
+	UsuarioDAO usuarioDao;	
 	@Autowired
 	TokenValidator tokenValidator;
-
 	@Autowired
 	ModelMapper modelmapper;
 	
 	
 	public ResponseEntity<?> crearUsuario(UsuarioDTO userDTO) {
         try {
-        	Usuario usuario = usuarioDao.persistir(modelmapper.map(userDTO, Usuario.class));   	
+        	Usuario usuario = usuarioDao.persistir(toEntity(userDTO));   	
             return new ResponseEntity<>(modelmapper.map(usuario, UsuarioDTO.class), HttpStatus.CREATED);
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -38,7 +35,7 @@ public class UsuarioService {
     public ResponseEntity<?> recuperarUsuario(String idUsuario) {
     		Usuario result = usuarioDao.recuperarPorId(Integer.parseInt(idUsuario));
     		if (result != null) {
-				return new ResponseEntity<>(modelmapper.map(result, UsuarioDTO.class), HttpStatus.OK);
+				return new ResponseEntity<>(toDTO(result), HttpStatus.OK);
     		} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
@@ -57,6 +54,18 @@ public class UsuarioService {
     			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     		}
 
+    }
+    
+    private UsuarioDTO toDTO(Usuario u) {
+    	UsuarioDTO uDTO = modelmapper.map(u, UsuarioDTO.class);
+    	uDTO.setPerfil(u.getPerfil().getNombre());
+		return uDTO;
+    }
+    
+    private Usuario toEntity(UsuarioDTO dto) {
+    	Usuario u = modelmapper.map(dto, Usuario.class);
+    	//u.setPerfil(Perfil.fromNombre(dto.getPerfil()));
+    	return u;
     }
 
 }

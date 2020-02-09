@@ -17,6 +17,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import carteleravirtual.common.TipoCartelera;
+
 @Entity
 @Table(name = "cartelera")
 public class CarteleraVirtual implements Serializable {
@@ -33,7 +35,7 @@ public class CarteleraVirtual implements Serializable {
 	private String descripcion;
 
 	@Column(name = "tipo")
-	private String tipoCartelera;
+	private TipoCartelera tipoCartelera;
 
 	@OneToOne(optional=true)
 	private Asignatura asignatura;
@@ -78,11 +80,11 @@ public class CarteleraVirtual implements Serializable {
 		this.descripcion = contenido;
 	}
 
-	public String getTipoCartelera() {
+	public TipoCartelera getTipoCartelera() {
 		return tipoCartelera;
 	}
 
-	public void setTipoCartelera(String tipoCartelera) {
+	public void setTipoCartelera(TipoCartelera tipoCartelera) {
 		this.tipoCartelera = tipoCartelera;
 	}
 

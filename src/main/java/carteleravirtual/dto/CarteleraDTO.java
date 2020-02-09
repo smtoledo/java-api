@@ -6,6 +6,7 @@ public class CarteleraDTO {
 	private String titulo;
 	private String descripcion;
 	private String tipoCartelera;
+	
 	public int getId() {
 		return id;
 	}
