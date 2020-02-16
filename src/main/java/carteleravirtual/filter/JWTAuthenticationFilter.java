@@ -34,7 +34,9 @@ public class JWTAuthenticationFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
 
         // El login del usuarios es publico
-        if ("/carteleravirtual/auth".equals(req.getRequestURI()) || HttpMethod.OPTIONS.matches(req.getMethod())) {
+        if ("/carteleravirtual/carteleras_publicas".equals(req.getRequestURI()) 
+        		|| "/carteleravirtual/auth".equals(req.getRequestURI())
+        		|| HttpMethod.OPTIONS.matches(req.getMethod())) {
             chain.doFilter(request, response);
             return;
         }

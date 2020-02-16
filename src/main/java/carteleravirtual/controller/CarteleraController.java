@@ -21,7 +21,7 @@ public class CarteleraController {
 	@Autowired
 	CarteleraService carteleraService;
 
-    @GetMapping("/carteleras")
+    @GetMapping("/carteleras_publicas")
     @ResponseBody
     public ResponseEntity<?> recuperarCarteleras(){
     	return carteleraService.recuperarCarteleras();
