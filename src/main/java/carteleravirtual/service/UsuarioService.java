@@ -1,5 +1,8 @@
 package carteleravirtual.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Service;
 import carteleravirtual.common.Perfil;
 import carteleravirtual.common.TokenValidator;
 import carteleravirtual.dao.UsuarioDAO;
+import carteleravirtual.dto.CarteleraDTO;
 import carteleravirtual.dto.UsuarioDTO;
 import carteleravirtual.model.Usuario;
 
@@ -39,6 +43,12 @@ public class UsuarioService {
     		} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
+    }
+    
+    public ResponseEntity<?> recuperarUsuarios(){
+		List<UsuarioDTO> userDTOs = usuarioDao.recuperarTodos("username").stream()
+				.map(user -> modelmapper.map(user, UsuarioDTO.class)).collect(Collectors.toList());
+		return new ResponseEntity<>(userDTOs, HttpStatus.OK);
     }
     
     public ResponseEntity<?> actualizarUsuario(UsuarioDTO usuarioDTO, String idUsuario) {

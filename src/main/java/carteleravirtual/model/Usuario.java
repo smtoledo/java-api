@@ -39,7 +39,7 @@ public class Usuario implements Serializable {
 	@Column(name="notif_alt_habilitada")
 	private int notificacionAlternativaHabilitada=0;
 	@Column(name="notif_alt_mail")
-	private String mailNotificacionAlternativa;
+	private String mailNotificacionAlternativa="";
 	
 	private Perfil perfil;
 	
