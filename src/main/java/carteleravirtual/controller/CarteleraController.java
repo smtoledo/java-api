@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import carteleravirtual.common.Perfil;
 import carteleravirtual.dto.CarteleraDTO;
 import carteleravirtual.dto.PublicacionDTO;
+import carteleravirtual.dto.UsuarioDTO;
 import carteleravirtual.service.CarteleraService;
 import carteleravirtual.service.PublicacionService;
 
@@ -48,6 +49,19 @@ public class CarteleraController {
 	@ResponseBody
 	public ResponseEntity<?> crearCartelera(@RequestBody CarteleraDTO carteleraDTO){
 		return carteleraService.crearCartelera(carteleraDTO);
+    }
+    /** ********************** SUSCRIPTORES/INTERESADOS *****************/
+    
+    @GetMapping("/carteleras/{id}/interesados")
+    @ResponseBody
+    public ResponseEntity<?> recuperarInteresados(@PathVariable("id") Long id){
+    	return null; //carteleraService.recuperarCarteleras();
+    }
+    
+    @PostMapping("/carteleras/{id_cartelera}/interesados")
+    public ResponseEntity<?> suscribirInteresado(@RequestBody UsuarioDTO userDTO,
+    		@PathVariable("id_cartelera") Long id_cartelera) {
+        return null; //to do
     }
     
     /** ********************** PUBLICACIONES *****************/

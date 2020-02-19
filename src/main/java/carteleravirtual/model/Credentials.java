@@ -7,16 +7,16 @@ public class Credentials {
     private String token;
     private int exp;
     private String username;
-    private Perfil role;
+    private Perfil perfil;
     
     public Credentials() {
     }
 
-    public Credentials(String token, int exp, String username, Perfil role) {
+    public Credentials(String token, int exp, String username, Perfil perfil) {
         this.token = token;
         this.exp = exp;
         this.username = username;
-        this.role = role;
+        this.perfil = perfil;
     }
 
     public String getToken() {
@@ -43,12 +43,12 @@ public class Credentials {
         this.username = username;
     }
 
-	public Perfil getRole() {
-		return role;
+	public Perfil getPerfil() {
+		return perfil;
 	}
 
-	public void setRole(Perfil role) {
-		this.role = role;
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
 	}
     
 }

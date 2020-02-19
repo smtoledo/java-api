@@ -14,13 +14,6 @@ public class TokenService {
 
     final static Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    /**
-     * Genera el token de authorizacion para el usuario
-     *
-     * @param username Username que se guarda dentro del token
-     * @param segundos tiempo de validez del token
-     * @return token
-     */
     public String generateToken(String username, int segundos) {
 
         Date exp = getExpiration(new Date(), segundos);
@@ -28,13 +21,6 @@ public class TokenService {
         return Jwts.builder().setSubject(username).signWith(key).setExpiration(exp).compact();
     }
 
-    /**
-     * Retorna la suma de <code>segundos</code> a la <code>fecha</code>
-     *
-     * @param date
-     * @param segundos
-     * @return
-     */
     private Date getExpiration(Date date, int segundos) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date); // Configuramos la fecha que se recibe
@@ -55,11 +41,6 @@ public class TokenService {
             Claims claims = Jwts.parser()
                     .setSigningKey(key)
                     .parseClaimsJws(token).getBody();
-
-            System.out.println("ID: " + claims.getId());
-            System.out.println("Subject: " + claims.getSubject());
-            System.out.println("Issuer: " + claims.getIssuer());
-            System.out.println("Expiration: " + claims.getExpiration());
 
             return true;
         } catch (ExpiredJwtException exp) {
