@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class CarteleraVirtual implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cartelera_id")
 	private int id;
 
@@ -43,7 +44,7 @@ public class CarteleraVirtual implements Serializable {
 	@CreationTimestamp
 	private Date alta;
 	
-	@OneToMany(mappedBy = "cartelera", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cartelera", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Publicacion> publicaciones;
 
 	@ManyToMany(mappedBy = "cartelerasAlumno")
@@ -103,13 +104,29 @@ public class CarteleraVirtual implements Serializable {
 	public void setPublicaciones(Set<Publicacion> publicaciones) {
 		this.publicaciones = publicaciones;
 	}
+	
+	public void addPublicacion(Publicacion publicacion) {
+		this.publicaciones.add(publicacion);
+	}
 
+	public void removePublicacion(Publicacion publicacion) {
+		this.publicaciones.remove(publicacion);
+	}
+	
 	public Set<Usuario> getInteresados() {
 		return interesados;
 	}
 
 	public void setInteresados(Set<Usuario> interesados) {
 		this.interesados = interesados;
+	}
+	
+	public void addInteresado(Usuario usuario) {
+		this.interesados.add(usuario);
+	}
+	
+	public void removeInteresado(Usuario usuario) {
+		this.interesados.remove(usuario);
 	}
 
 	public Set<Usuario> getDocentes() {

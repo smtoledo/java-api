@@ -13,7 +13,7 @@ public class Publicacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="publicacion_id")
 	private int id;
 	
@@ -25,8 +25,7 @@ public class Publicacion implements Serializable {
 	@Column(name="ultima_modificacion")
 	private Date ultimaModificacion;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name="usuario_id")
+	@OneToOne(cascade = CascadeType.ALL)
 	private Usuario autor;
 	
 	@ManyToOne(optional=false)

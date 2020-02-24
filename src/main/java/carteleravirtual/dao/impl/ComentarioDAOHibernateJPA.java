@@ -6,7 +6,7 @@ import carteleravirtual.dao.ComentarioDAO;
 import carteleravirtual.model.Comentario;
 
 @Repository
-public class ComentarioDAOHibernateJPA<T> extends GenericDAOHibernateJPA<Comentario> implements ComentarioDAO {
+public class ComentarioDAOHibernateJPA<T> extends GenericDAOHibernateJPA<Comentario,Integer> implements ComentarioDAO {
 
 	public ComentarioDAOHibernateJPA() {
 		super(Comentario.class);

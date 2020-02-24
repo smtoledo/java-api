@@ -8,7 +8,7 @@ import carteleravirtual.dao.AsignaturaDAO;
 import carteleravirtual.model.Asignatura;
 
 @Repository
-public class AsignaturaDAOHibernateJPA<T> extends GenericDAOHibernateJPA<Asignatura> implements AsignaturaDAO {
+public class AsignaturaDAOHibernateJPA<T> extends GenericDAOHibernateJPA<Asignatura,Integer> implements AsignaturaDAO {
 
 	public AsignaturaDAOHibernateJPA() {
 		super(Asignatura.class);

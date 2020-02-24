@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import carteleravirtual.dao.GenericDAO;
 
 @Transactional
-public abstract class GenericDAOHibernateJPA<T> implements GenericDAO<T>{
+public abstract class GenericDAOHibernateJPA<T, ID> implements GenericDAO<T, ID>{
 
     protected Class<T> persistentClass;
 
@@ -37,6 +37,10 @@ public abstract class GenericDAOHibernateJPA<T> implements GenericDAO<T>{
         return entity;
 	}
 
+    public T recuperarPorId(ID id) {
+        return this.getEntityManager().find(this.persistentClass, id);
+    }
+	
 	@Override
 	public T actualizar(T entity) {
 		return this.getEntityManager().merge(entity);

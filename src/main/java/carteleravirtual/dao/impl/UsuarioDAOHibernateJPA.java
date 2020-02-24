@@ -10,7 +10,7 @@ import carteleravirtual.dao.UsuarioDAO;
 import carteleravirtual.model.Usuario;
 
 @Repository
-public class UsuarioDAOHibernateJPA<T> extends GenericDAOHibernateJPA<Usuario> implements UsuarioDAO {
+public class UsuarioDAOHibernateJPA<T> extends GenericDAOHibernateJPA<Usuario,Integer> implements UsuarioDAO {
 
 	public UsuarioDAOHibernateJPA() {
 		super(Usuario.class);

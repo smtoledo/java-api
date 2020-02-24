@@ -1,0 +1,24 @@
+INSERT INTO `cartelera_virtual`.`usuario`
+(`apellido`,
+`cuenta_activa`,
+`dni`,
+`email`,
+`notif_alt_mail`,
+`nombre`,
+`notif_alt_habilitada`,
+`notif_habilitadas`,
+`password`,
+`perfil`,
+`username`)
+VALUES
+('Toledo',
+1,
+'32517214',
+'sebsmtoledo@gmail.com',
+1,
+'Sebastian',
+0,
+0,
+'1234',
+0,
+'stoledo');

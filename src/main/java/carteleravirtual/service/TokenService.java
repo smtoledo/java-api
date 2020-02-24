@@ -30,18 +30,14 @@ public class TokenService {
     }
 
     public static boolean validateToken(String token) {
-
         String prefix = "Bearer";
         try {
-
             if (token.startsWith(prefix)) {
                 token = token.substring(prefix.length()).trim();
             }
-
             Claims claims = Jwts.parser()
                     .setSigningKey(key)
                     .parseClaimsJws(token).getBody();
-
             return true;
         } catch (ExpiredJwtException exp) {
             System.out.println("El Token es valido, pero expiro su tiempo de validez");
@@ -51,6 +47,13 @@ public class TokenService {
             System.out.println("Error: " + e.getMessage());
             return false;
         }
-
+    }
+    
+    public static String getUsernameFromToken(String token) {
+    	String prefix = "Bearer";
+        token = token.substring(prefix.length()).trim();
+        Claims claims = Jwts.parser().setSigningKey(key)
+                .parseClaimsJws(token).getBody();
+        return claims.getSubject();
     }
 }

@@ -1,8 +1,5 @@
 package carteleravirtual.model;
 
-/**
- * @author manuel
- */
 public class UsernaneAndPassword {
 
     private String username;

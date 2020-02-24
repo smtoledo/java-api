@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +17,7 @@ import carteleravirtual.dto.PublicacionDTO;
 import carteleravirtual.dto.UsuarioDTO;
 import carteleravirtual.service.CarteleraService;
 import carteleravirtual.service.PublicacionService;
+import carteleravirtual.service.TokenService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -41,7 +43,7 @@ public class CarteleraController {
     }
     
     @GetMapping("/carteleras/{id}")
-    public ResponseEntity<?> recuperarCartelerasPorId(@PathVariable("id") Long id) {
+    public ResponseEntity<?> recuperarCartelerasPorId(@PathVariable("id") Integer id) {
         return carteleraService.recuperarCarteleras(id);
     }
 
@@ -54,13 +56,13 @@ public class CarteleraController {
     
     @GetMapping("/carteleras/{id}/interesados")
     @ResponseBody
-    public ResponseEntity<?> recuperarInteresados(@PathVariable("id") Long id){
+    public ResponseEntity<?> recuperarInteresados(@PathVariable("id") Integer id){
     	return null; //carteleraService.recuperarCarteleras();
     }
     
-    @PostMapping("/carteleras/{id_cartelera}/interesados")
+    @PostMapping("/carteleras/{id}/interesados")
     public ResponseEntity<?> suscribirInteresado(@RequestBody UsuarioDTO userDTO,
-    		@PathVariable("id_cartelera") Long id_cartelera) {
+    		@PathVariable("id") Long id) {
         return null; //to do
     }
     
@@ -68,8 +70,10 @@ public class CarteleraController {
     
     @PostMapping("/carteleras/{id_cartelera}/publicaciones")
     public ResponseEntity<?> subirPublicacion(@RequestBody PublicacionDTO publicacionDTO,
-    		@PathVariable("id_cartelera") Long id_cartelera) {
-        return null; //to do
+    		@PathVariable("id_cartelera") Integer id_cartelera, 
+    		@RequestHeader (name="Authorization") String token) {
+    	String username = TokenService.getUsernameFromToken(token);
+        return carteleraService.agregarPublicacion(publicacionDTO, id_cartelera, username);
     }
      
     @GetMapping("/carteleras/{id_cartelera}/publicaciones")
