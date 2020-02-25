@@ -22,6 +22,7 @@ public class Publicacion implements Serializable {
 	private byte[] imagen;
 	private byte[] archivo;
 	private String link;
+	
 	@Column(name="ultima_modificacion")
 	private Date ultimaModificacion;
 
@@ -32,7 +33,7 @@ public class Publicacion implements Serializable {
 	@JoinColumn(name="cartelera_id")
 	private CarteleraVirtual cartelera;	
 	
-	@OneToMany(mappedBy="publicacion",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="publicacion", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Comentario> comentarios;
 	
 	public Publicacion() {}

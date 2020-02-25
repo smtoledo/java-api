@@ -72,6 +72,13 @@ public class CarteleraService {
     	
     }
 
+    public ResponseEntity<?> recuperarPublicaciones(Integer id_cartelera){
+    	CarteleraVirtual cartelera = carteleraDAO.recuperarPorId(id_cartelera);
+    	List<PublicacionDTO> listDtos = cartelera.getPublicaciones().stream()
+				.map(publicacion -> modelmapper.map(publicacion, PublicacionDTO.class)).collect(Collectors.toList());
+    	return new ResponseEntity<>(listDtos, HttpStatus.OK);
+    }
+    
 	public Perfil[] recuperarTiposCartelera() {
 		return Perfil.values();
 	}

@@ -20,7 +20,7 @@ public class Comentario implements Serializable {
 	private Date fecha;
 	private int habilitado=1;
 	
-	@ManyToOne(optional = false)
+	@OneToOne(optional = false)
 	@JoinColumn(name="usuario_id")
 	private Usuario autor;
 	

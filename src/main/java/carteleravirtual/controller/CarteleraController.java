@@ -77,12 +77,12 @@ public class CarteleraController {
     }
      
     @GetMapping("/carteleras/{id_cartelera}/publicaciones")
-    public ResponseEntity<?> recuperarPublicaciones(@PathVariable("id_cartelera") Long id_cartelera) {
-        return null; //to do
+    public ResponseEntity<?> recuperarPublicaciones(@PathVariable("id_cartelera") Integer id_cartelera) {
+        return carteleraService.recuperarPublicaciones(id_cartelera);
     }
     
     @GetMapping("/carteleras/{id_cartelera}/publicaciones/{id_publicacion}")
-    public ResponseEntity<?> recuperarPublicacion(@PathVariable("id_cartelera") Long id_cartelera,
+    public ResponseEntity<?> recuperarPublicacion(@PathVariable("id_cartelera") Integer id_cartelera,
     		@PathVariable("id_publicacion") Long id_publicacion) {
         return null; //to do
     }
