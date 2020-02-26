@@ -4,7 +4,21 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "publicacion")
@@ -23,17 +37,21 @@ public class Publicacion implements Serializable {
 	private byte[] archivo;
 	private String link;
 	
+	@CreationTimestamp
+	private Date alta;
+	
 	@Column(name="ultima_modificacion")
+	@UpdateTimestamp
 	private Date ultimaModificacion;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	private Usuario autor;
 	
 	@ManyToOne(optional=false)
 	@JoinColumn(name="cartelera_id")
 	private CarteleraVirtual cartelera;	
 	
-	@OneToMany(mappedBy="publicacion", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="publicacion", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Set<Comentario> comentarios;
 	
 	public Publicacion() {}
@@ -97,8 +115,14 @@ public class Publicacion implements Serializable {
 	}
 	public void setComentarios(Set<Comentario> comentarios) {
 		this.comentarios = comentarios;
+	}		
+	public Date getAlta() {
+		return alta;
 	}
-	
+	public void setAlta(Date alta) {
+		this.alta = alta;
+	}
+
 	@Override
 	public String toString() {
 		return "publicacion '"+this.titulo+"' { cartelera: "+this.cartelera.getTitulo()

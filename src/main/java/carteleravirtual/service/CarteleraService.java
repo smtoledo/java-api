@@ -16,6 +16,7 @@ import carteleravirtual.dao.PublicacionDAO;
 import carteleravirtual.dao.UsuarioDAO;
 import carteleravirtual.dto.CarteleraDTO;
 import carteleravirtual.dto.PublicacionDTO;
+import carteleravirtual.dto.UsuarioDTO;
 import carteleravirtual.model.CarteleraVirtual;
 import carteleravirtual.model.Publicacion;
 import carteleravirtual.model.Usuario;
@@ -35,7 +36,9 @@ public class CarteleraService {
 	ModelMapper modelmapper;
 	
 	
-	public ResponseEntity<?> crearCartelera(CarteleraDTO carteleraDto) {
+	public ResponseEntity<?> crearCartelera(CarteleraDTO carteleraDto, String username) {
+		Usuario autor = usuarioDAO.recuperar(username);
+		carteleraDto.setAutor(modelmapper.map(autor, UsuarioDTO.class));
 		CarteleraVirtual cartelera = carteleraDAO.persistir(modelmapper.map(carteleraDto, CarteleraVirtual.class));
 		return new ResponseEntity<>(modelmapper.map(cartelera, CarteleraDTO.class), HttpStatus.OK);
 	}
@@ -77,6 +80,13 @@ public class CarteleraService {
     	List<PublicacionDTO> listDtos = cartelera.getPublicaciones().stream()
 				.map(publicacion -> modelmapper.map(publicacion, PublicacionDTO.class)).collect(Collectors.toList());
     	return new ResponseEntity<>(listDtos, HttpStatus.OK);
+    }
+    
+    public ResponseEntity<?> recuperarPublicacion(Integer id_cartelera, Integer id_publicacion){
+    	CarteleraVirtual cartelera = carteleraDAO.recuperarPorId(id_cartelera);
+    	List<PublicacionDTO> listDtos = cartelera.getPublicaciones().stream()
+				.map(publicacion -> modelmapper.map(publicacion, PublicacionDTO.class)).collect(Collectors.toList());
+    	return new ResponseEntity<>(listDtos.stream().filter(p -> p.getId() == id_publicacion.intValue()).findFirst().orElse(null), HttpStatus.OK);
     }
     
 	public Perfil[] recuperarTiposCartelera() {

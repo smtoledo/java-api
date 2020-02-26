@@ -8,6 +8,7 @@ public class PublicacionDTO {
 	private String titulo;
 	private String contenido;
 	private Date ultimaModificacion;
+	private Date alta;
 	private UsuarioDTO autor;
 	private CarteleraDTO cartelera;
 	
@@ -57,6 +58,14 @@ public class PublicacionDTO {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Date getAlta() {
+		return alta;
+	}
+
+	public void setAlta(Date alta) {
+		this.alta = alta;
 	}
 	
 }

@@ -1,11 +1,17 @@
 package carteleravirtual.dto;
 
+import java.util.Date;
+
+import carteleravirtual.model.Usuario;
+
 public class CarteleraDTO {
 
 	private int id;
 	private String titulo;
 	private String descripcion;
 	private String tipoCartelera;
+	private Date alta;
+	private UsuarioDTO autor;
 	
 	public int getId() {
 		return id;
@@ -31,5 +37,16 @@ public class CarteleraDTO {
 	public void setTipoCartelera(String tipoCartelera) {
 		this.tipoCartelera = tipoCartelera;
 	}
-	
+	public Date getAlta() {
+		return alta;
+	}
+	public void setAlta(Date alta) {
+		this.alta = alta;
+	}
+	public UsuarioDTO getAutor() {
+		return autor;
+	}
+	public void setAutor(UsuarioDTO autor) {
+		this.autor = autor;
+	}
 }

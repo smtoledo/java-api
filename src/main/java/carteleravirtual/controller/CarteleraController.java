@@ -49,8 +49,10 @@ public class CarteleraController {
 
     @PostMapping("/carteleras")
 	@ResponseBody
-	public ResponseEntity<?> crearCartelera(@RequestBody CarteleraDTO carteleraDTO){
-		return carteleraService.crearCartelera(carteleraDTO);
+	public ResponseEntity<?> crearCartelera(@RequestBody CarteleraDTO carteleraDTO,
+			@RequestHeader (name="Authorization") String token){
+    	String username = TokenService.getUsernameFromToken(token);
+		return carteleraService.crearCartelera(carteleraDTO, username);
     }
     /** ********************** SUSCRIPTORES/INTERESADOS *****************/
     
@@ -83,8 +85,8 @@ public class CarteleraController {
     
     @GetMapping("/carteleras/{id_cartelera}/publicaciones/{id_publicacion}")
     public ResponseEntity<?> recuperarPublicacion(@PathVariable("id_cartelera") Integer id_cartelera,
-    		@PathVariable("id_publicacion") Long id_publicacion) {
-        return null; //to do
+    		@PathVariable("id_publicacion") Integer id_publicacion) {
+        return carteleraService.recuperarPublicacion(id_cartelera, id_publicacion);
     }
     	
 }

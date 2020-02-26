@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import carteleravirtual.common.TipoCartelera;
 
@@ -44,7 +45,14 @@ public class CarteleraVirtual implements Serializable {
 	@CreationTimestamp
 	private Date alta;
 	
-	@OneToMany(mappedBy = "cartelera", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.MERGE)
+	private Usuario autor;
+	
+	@Column(name="ultima_modificacion")
+	@UpdateTimestamp
+	private Date ultimaModificacion;
+	
+	@OneToMany(mappedBy = "cartelera", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Set<Publicacion> publicaciones;
 
 	@ManyToMany(mappedBy = "cartelerasAlumno")
@@ -95,6 +103,14 @@ public class CarteleraVirtual implements Serializable {
 
 	public void setAlta(Date alta) {
 		this.alta = alta;
+	}
+
+	public Usuario getAutor() {
+		return autor;
+	}
+
+	public void setAutor(Usuario autor) {
+		this.autor = autor;
 	}
 
 	public Set<Publicacion> getPublicaciones() {
@@ -151,6 +167,14 @@ public class CarteleraVirtual implements Serializable {
 
 	public void setAsignatura(Asignatura asignatura) {
 		this.asignatura = asignatura;
+	}
+
+	public Date getUltimaModificacion() {
+		return ultimaModificacion;
+	}
+
+	public void setUltimaModificacion(Date ultimaModificacion) {
+		this.ultimaModificacion = ultimaModificacion;
 	}
 
 	@Override

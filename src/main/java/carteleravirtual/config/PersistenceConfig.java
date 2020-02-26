@@ -63,7 +63,7 @@ public class PersistenceConfig {
 		return properties;
 	}
 	
-	@Bean
+	/**@Bean
 	public DataSourceInitializer dataSourceInitializer() {
 	    ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
 	    resourceDatabasePopulator.addScript(new ClassPathResource("/data.sql"));
@@ -72,6 +72,6 @@ public class PersistenceConfig {
 	    dataSourceInitializer.setDataSource(dataSource());
 	    dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
 	    return dataSourceInitializer;
-	}
+	}*/
 		
 }
