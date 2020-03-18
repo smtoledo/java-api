@@ -24,8 +24,7 @@ public class Comentario implements Serializable {
 	private Date alta;
 	private int habilitado=1;
 	
-	@OneToOne(optional = false)
-	@JoinColumn(name="usuario_id")
+	@OneToOne(cascade = CascadeType.MERGE)
 	private Usuario autor;
 	
 	@ManyToOne(optional = false)
