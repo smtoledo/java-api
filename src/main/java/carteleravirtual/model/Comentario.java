@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "comentario")
 public class Comentario implements Serializable {
@@ -17,7 +19,9 @@ public class Comentario implements Serializable {
 	private int id;
 	
 	private String contenido;
-	private Date fecha;
+	
+	@CreationTimestamp
+	private Date alta;
 	private int habilitado=1;
 	
 	@OneToOne(optional = false)
@@ -48,11 +52,11 @@ public class Comentario implements Serializable {
 	public void setAutor(Usuario user) {
 		this.autor = user;
 	}
-	public Date getFecha() {
-		return fecha;
+	public Date getAlta() {
+		return alta;
 	}
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setAlta(Date alta) {
+		this.alta = alta;
 	}
 	public int getHabilitado() {
 		return habilitado;
@@ -69,6 +73,6 @@ public class Comentario implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "comentario de "+this.autor.getUsername()+" { contenido: "+this.contenido+" } fecha: "+this.fecha;
+		return "comentario de "+this.autor.getUsername()+" { contenido: "+this.contenido+" } fecha: "+this.alta;
 	}
 }

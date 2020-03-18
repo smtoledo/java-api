@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import carteleravirtual.common.Perfil;
 import carteleravirtual.dto.CarteleraDTO;
+import carteleravirtual.dto.ComentarioDTO;
 import carteleravirtual.dto.PublicacionDTO;
 import carteleravirtual.dto.UsuarioDTO;
 import carteleravirtual.service.CarteleraService;
@@ -87,6 +89,32 @@ public class CarteleraController {
     public ResponseEntity<?> recuperarPublicacion(@PathVariable("id_cartelera") Integer id_cartelera,
     		@PathVariable("id_publicacion") Integer id_publicacion) {
         return carteleraService.recuperarPublicacion(id_cartelera, id_publicacion);
+    }
+    
+    /** ********************** COMENTARIOS *****************/
+    
+    @PostMapping("/carteleras/{id_cartelera}/publicaciones/{id_publicacion}/comentarios")
+    public ResponseEntity<?> postComentario(@RequestBody ComentarioDTO comentarioDTO,
+    		@PathVariable("id_cartelera") Integer id_cartelera,
+    		@PathVariable("id_publicacion") Integer id_publicacion,
+    		@RequestHeader (name="Authorization") String token) {
+    	String username = TokenService.getUsernameFromToken(token);
+        return publicacionService.agregarComentario(comentarioDTO, id_cartelera, id_publicacion, username);
+    }
+    
+    @GetMapping("/carteleras/{id_cartelera}/publicaciones/{id_publicacion}/comentarios")
+    public ResponseEntity<?> getComentarios(@PathVariable("id_cartelera") Integer id_cartelera,
+    		@PathVariable("id_publicacion") Integer id_publicacion){
+        return publicacionService.recuperarComentarios(id_publicacion);
+    }
+    
+    @PutMapping("/carteleras/{id_cartelera}/publicaciones/{id_publicacion}/comentarios")
+    public ResponseEntity<?> updateComentario(@RequestBody ComentarioDTO comentarioDTO,
+    		@PathVariable("id_cartelera") Integer id_cartelera,
+    		@PathVariable("id_publicacion") Integer id_publicacion,
+    		@RequestHeader (name="Authorization") String token) {
+    	String username = TokenService.getUsernameFromToken(token);
+        return null;//publicacionService.agregarComentario(comentarioDTO, id_cartelera, id_publicacion, username);
     }
     	
 }

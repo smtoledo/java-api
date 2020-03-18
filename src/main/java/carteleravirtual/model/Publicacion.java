@@ -115,7 +115,13 @@ public class Publicacion implements Serializable {
 	}
 	public void setComentarios(Set<Comentario> comentarios) {
 		this.comentarios = comentarios;
-	}		
+	}
+	public void addComentario(Comentario c) {
+		this.comentarios.add(c);
+	}
+	public void removeComentario(Comentario c) {
+		this.comentarios.remove(c);
+	}
 	public Date getAlta() {
 		return alta;
 	}
