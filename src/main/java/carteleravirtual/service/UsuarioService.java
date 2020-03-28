@@ -9,10 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import carteleravirtual.common.Perfil;
 import carteleravirtual.common.TokenValidator;
 import carteleravirtual.dao.UsuarioDAO;
-import carteleravirtual.dto.CarteleraDTO;
 import carteleravirtual.dto.UsuarioDTO;
 import carteleravirtual.model.Usuario;
 
