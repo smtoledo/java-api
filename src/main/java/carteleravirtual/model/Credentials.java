@@ -1,5 +1,7 @@
 package carteleravirtual.model;
 
+import java.util.Set;
+
 import carteleravirtual.common.Perfil;
 
 public class Credentials {
@@ -8,15 +10,20 @@ public class Credentials {
     private int exp;
     private String username;
     private Perfil perfil;
+    private Integer[] preferidas;
+    private Integer[] carteleras;
     
     public Credentials() {
     }
 
-    public Credentials(String token, int exp, String username, Perfil perfil) {
+    public Credentials(String token, int exp, String username, Perfil perfil, 
+        Integer[] preferidas, Integer[] carteleras) {
         this.token = token;
         this.exp = exp;
         this.username = username;
         this.perfil = perfil;
+        this.carteleras = carteleras;
+        this.preferidas = preferidas;
     }
 
     public String getToken() {
@@ -49,6 +56,21 @@ public class Credentials {
 
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
-	}
-    
+    }
+
+    public Integer[] getPreferidas() {
+        return preferidas;
+    }
+
+    public void setPreferidas(Integer[] preferidas) {
+        this.preferidas = preferidas;
+    }
+
+    public Integer[] getCarteleras() {
+        return carteleras;
+    }
+
+    public void setCarteleras(Integer[] carteleras) {
+        this.carteleras = carteleras;
+    }        
 }

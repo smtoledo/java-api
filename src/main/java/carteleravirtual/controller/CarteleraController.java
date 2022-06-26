@@ -38,6 +38,20 @@ public class CarteleraController {
     	return carteleraService.recuperarCarteleras();
     }
     
+    @GetMapping("/carteleras_usuario")
+    @ResponseBody
+    public ResponseEntity<?> recuperarCartelerasPorUsuario(@RequestHeader (name="Authorization") String token){
+        String username = TokenService.getUsernameFromToken(token);
+    	return carteleraService.recuperarCartelerasPorUsuario(username);
+    }
+    
+    @GetMapping("/carteleras_fav_usuario")
+    @ResponseBody
+    public ResponseEntity<?> recuperarCartelerasFavPorUsuario(@RequestHeader (name="Authorization") String token){
+        String username = TokenService.getUsernameFromToken(token);
+    	return carteleraService.recuperarCartelerasFavPorUsuario(username);
+    }
+
     @GetMapping("/tipos_cartelera")
     @ResponseBody
     public Perfil[] recuperarTiposCartelera(){
@@ -115,6 +129,22 @@ public class CarteleraController {
     		@RequestHeader (name="Authorization") String token) {
     	String username = TokenService.getUsernameFromToken(token);
         return null;//publicacionService.agregarComentario(comentarioDTO, id_cartelera, id_publicacion, username);
+    }
+    
+    /** ********************** SUSCRIPTOS *****************/
+    
+    @PutMapping("/carteleras/{id_cartelera}/suscribe")
+    public ResponseEntity<?> suscribe(@PathVariable("id_cartelera") Integer id_cartelera, 
+    		@RequestHeader (name="Authorization") String token) {
+    	String username = TokenService.getUsernameFromToken(token);
+        return carteleraService.suscribe(id_cartelera, username);
+    }
+    
+    @PutMapping("/carteleras/{id_cartelera}/unsuscribe")
+    public ResponseEntity<?> unsuscribe(@PathVariable("id_cartelera") Integer id_cartelera, 
+    		@RequestHeader (name="Authorization") String token) {
+    	String username = TokenService.getUsernameFromToken(token);
+        return carteleraService.unsuscribe(id_cartelera, username);
     }
     	
 }

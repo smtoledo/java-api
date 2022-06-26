@@ -2,8 +2,6 @@ package carteleravirtual.dto;
 
 import java.util.Date;
 
-import carteleravirtual.model.Usuario;
-
 public class CarteleraDTO {
 
 	private int id;

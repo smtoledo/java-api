@@ -1,10 +1,14 @@
 package carteleravirtual.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,23 +47,19 @@ public class Usuario implements Serializable {
 	
 	private Perfil perfil;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name="alumno_carteleras",
-	joinColumns=@JoinColumn(name="usuario_id",
-			referencedColumnName="usuario_id"),
-	inverseJoinColumns=@JoinColumn(name="cartelera_id",
-			referencedColumnName="cartelera_id")
+		joinColumns=@JoinColumn(name="usuario_id"),
+		inverseJoinColumns=@JoinColumn(name="cartelera_id")
 	)
-	private Set<CarteleraVirtual> cartelerasAlumno;
+	private Set<CarteleraVirtual> preferidas = new HashSet<CarteleraVirtual>();
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "docente_carteleras",
-	joinColumns = {@JoinColumn(name = "usuario_id", 
-			referencedColumnName="usuario_id")},
-	inverseJoinColumns = @JoinColumn(name = "cartelera_id", 
-			referencedColumnName="cartelera_id")
+		joinColumns=@JoinColumn(name="usuario_id"),
+		inverseJoinColumns=@JoinColumn(name="cartelera_id")
 	)
-	private Set<CarteleraVirtual> cartelerasDocente;
+	private Set<CarteleraVirtual> carteleras = new HashSet<CarteleraVirtual>();
 	
 	public Usuario() {}
 	
@@ -159,20 +159,50 @@ public class Usuario implements Serializable {
 		this.perfil = perfil;
 	}
 
-	public Set<CarteleraVirtual> getCartelerasAlumno() {
-		return cartelerasAlumno;
+	public Set<CarteleraVirtual> getPreferidas() {
+		return preferidas;
 	}
 
-	public void setCartelerasAlumno(Set<CarteleraVirtual> cartelerasAlumno) {
-		this.cartelerasAlumno = cartelerasAlumno;
+	public Integer[] getPreferidasIds(){
+		Integer[] result = new Integer[preferidas.size()];
+		Iterator<CarteleraVirtual> iterator = preferidas.iterator();
+		int i = 0;
+		while(iterator.hasNext()) {
+			result[i] = iterator.next().getId();
+			i++;
+		}
+		return result;
 	}
 
-	public Set<CarteleraVirtual> getCartelerasDocente() {
-		return cartelerasDocente;
+	public void setPreferidas(Set<CarteleraVirtual> preferidas) {
+		this.preferidas = preferidas;
 	}
 
-	public void setCartelerasDocente(Set<CarteleraVirtual> cartelerasDocente) {
-		this.cartelerasDocente = cartelerasDocente;
+	public Set<CarteleraVirtual> getCarteleras() {
+		return carteleras;
+	}
+
+	public Integer[] getCartelerasIds(){
+		Integer[] result = new Integer[carteleras.size()];
+		Iterator<CarteleraVirtual> iterator = carteleras.iterator();
+		int i = 0;
+		while(iterator.hasNext()) {
+			result[i] = iterator.next().getId();
+			i++;
+		}
+		return result;
+	}
+
+	public void setCarteleras(Set<CarteleraVirtual> carteleras) {
+		this.carteleras = carteleras;
+	}
+
+	public void addPreferidas(CarteleraVirtual cartelera) {
+		this.preferidas.add(cartelera);
+	}
+	
+	public void removePreferidas(CarteleraVirtual cartelera) {
+		this.preferidas.remove(cartelera);
 	}
 
 	@Override

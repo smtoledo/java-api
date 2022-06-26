@@ -47,6 +47,20 @@ public class CarteleraService {
 		List<CarteleraDTO> carteleraDtos = carteleraDAO.recuperarTodos("titulo").stream()
 				.map(cartelera -> modelmapper.map(cartelera, CarteleraDTO.class)).collect(Collectors.toList());
 		return new ResponseEntity<>(carteleraDtos, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> recuperarCartelerasPorUsuario(String usuario){
+		Usuario user = usuarioDAO.recuperar(usuario);
+		List<CarteleraDTO> carteleraDtos = carteleraDAO.recuperarCartelerasPorUsuario(user.getId()).stream()
+				.map(cartelera -> modelmapper.map(cartelera, CarteleraDTO.class)).collect(Collectors.toList());
+		return new ResponseEntity<>(carteleraDtos, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> recuperarCartelerasFavPorUsuario(String usuario){
+		Usuario user = usuarioDAO.recuperar(usuario);
+		List<CarteleraDTO> carteleraDtos = carteleraDAO.recuperarCartelerasFavPorUsuario(user.getId()).stream()
+				.map(cartelera -> modelmapper.map(cartelera, CarteleraDTO.class)).collect(Collectors.toList());
+		return new ResponseEntity<>(carteleraDtos, HttpStatus.OK);
     }
     
     public ResponseEntity<?> recuperarCarteleras(Integer id){
@@ -92,5 +106,36 @@ public class CarteleraService {
 	public Perfil[] recuperarTiposCartelera() {
 		return Perfil.values();
 	}
+	
+    public ResponseEntity<?> suscribe(Integer id_cartelera, String username){
+    	CarteleraVirtual cartelera = carteleraDAO.recuperarPorId(id_cartelera);
+    	Usuario usuario = usuarioDAO.recuperar(username);
+    	if (cartelera != null && usuario != null) {
+    		try {
+    			cartelera.addInteresado(usuario);;
+    			carteleraDAO.actualizar(cartelera);
+    		}catch(Exception e) {
+    			return new ResponseEntity<CarteleraDTO>(modelmapper.map(cartelera, CarteleraDTO.class), HttpStatus.NOT_MODIFIED);
+    		}
+    		return new ResponseEntity<CarteleraDTO>(modelmapper.map(cartelera, CarteleraDTO.class), HttpStatus.OK);
+    	}else {
+    		return new ResponseEntity<CarteleraDTO>(modelmapper.map(cartelera, CarteleraDTO.class), HttpStatus.NOT_MODIFIED);
+    	}    	
+    }
 
+    public ResponseEntity<?> unsuscribe(Integer id_cartelera, String username){
+    	CarteleraVirtual cartelera = carteleraDAO.recuperarPorId(id_cartelera);
+    	Usuario usuario = usuarioDAO.recuperar(username);
+    	if (cartelera != null && usuario != null) {
+    		try {
+    			cartelera.removeInteresado(usuario);;
+    			carteleraDAO.actualizar(cartelera);
+    		}catch(Exception e) {
+    			return new ResponseEntity<CarteleraDTO>(modelmapper.map(cartelera, CarteleraDTO.class), HttpStatus.NOT_MODIFIED);
+    		}
+    		return new ResponseEntity<CarteleraDTO>(modelmapper.map(cartelera, CarteleraDTO.class), HttpStatus.OK);
+    	}else {
+    		return new ResponseEntity<CarteleraDTO>(modelmapper.map(cartelera, CarteleraDTO.class), HttpStatus.NOT_MODIFIED);
+    	}    	
+    }
 }

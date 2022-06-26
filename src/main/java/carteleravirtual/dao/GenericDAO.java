@@ -10,5 +10,6 @@ public interface GenericDAO<T, ID> {
 	public void borrar(T entity);
 	public T recuperarPorId(ID id);
 	public List<T> recuperarTodos(String columnOrder);
+	public List<T> recuperarTodosDonde(String where, String columnOrder);
 	public boolean existe(Serializable id);
 }

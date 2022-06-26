@@ -10,8 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import carteleravirtual.common.TokenValidator;
+import carteleravirtual.dao.CarteleraVirtualDAO;
 import carteleravirtual.dao.UsuarioDAO;
 import carteleravirtual.dto.UsuarioDTO;
+import carteleravirtual.model.CarteleraVirtual;
 import carteleravirtual.model.Usuario;
 
 @Service
@@ -19,6 +21,8 @@ public class UsuarioService {
 	
 	@Autowired
 	UsuarioDAO usuarioDao;	
+	@Autowired
+	CarteleraVirtualDAO carteleraDAO;
 	@Autowired
 	TokenValidator tokenValidator;
 	@Autowired
@@ -62,8 +66,43 @@ public class UsuarioService {
     			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     		}
 
-    }
-    
+	}
+	
+	public ResponseEntity<?> suscribe(Integer id_cartelera, String username){
+    	CarteleraVirtual cartelera = carteleraDAO.recuperarPorId(id_cartelera);
+		Usuario usuario = usuarioDao.recuperar(username);
+		
+    	if (cartelera != null && usuario != null) {
+    		try {
+				usuario.addPreferidas(cartelera);
+				usuarioDao.actualizar(usuario);				
+    		}catch(Exception e) {
+    			return new ResponseEntity<UsuarioDTO>(modelmapper.map(usuario, UsuarioDTO.class), HttpStatus.NOT_MODIFIED);
+    		}
+    		return new ResponseEntity<UsuarioDTO>(modelmapper.map(usuario, UsuarioDTO.class), HttpStatus.OK);
+    	}else {
+    		return new ResponseEntity<UsuarioDTO>(modelmapper.map(usuario, UsuarioDTO.class), HttpStatus.NOT_MODIFIED);
+    	}
+	}
+	
+		
+	public ResponseEntity<?> unsuscribe(Integer id_cartelera, String username){
+    	CarteleraVirtual cartelera = carteleraDAO.recuperarPorId(id_cartelera);
+		Usuario usuario = usuarioDao.recuperar(username);
+		
+    	if (cartelera != null && usuario != null) {
+    		try {
+				usuario.removePreferidas(cartelera);
+				usuarioDao.actualizar(usuario);				
+    		}catch(Exception e) {
+    			return new ResponseEntity<UsuarioDTO>(modelmapper.map(usuario, UsuarioDTO.class), HttpStatus.NOT_MODIFIED);
+    		}
+    		return new ResponseEntity<UsuarioDTO>(modelmapper.map(usuario, UsuarioDTO.class), HttpStatus.OK);
+    	}else {
+    		return new ResponseEntity<UsuarioDTO>(modelmapper.map(usuario, UsuarioDTO.class), HttpStatus.NOT_MODIFIED);
+    	}
+	}
+	    
     private UsuarioDTO toDTO(Usuario u) {
     	UsuarioDTO uDTO = modelmapper.map(u, UsuarioDTO.class);
     	uDTO.setPerfil(u.getPerfil().getNombre());

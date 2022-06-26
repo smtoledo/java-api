@@ -55,10 +55,10 @@ public class CarteleraVirtual implements Serializable {
 	@OneToMany(mappedBy = "cartelera", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private Set<Publicacion> publicaciones;
 
-	@ManyToMany(mappedBy = "cartelerasAlumno")
+	@ManyToMany(mappedBy = "preferidas")
 	private Set<Usuario> interesados;
 
-	@ManyToMany(mappedBy = "cartelerasDocente")
+	@ManyToMany(mappedBy = "carteleras")
 	private Set<Usuario> docentes;
 	
 	private int habilitada = 1;

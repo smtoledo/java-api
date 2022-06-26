@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,5 +42,15 @@ public class UsuarioController {
     public ResponseEntity<?> updateUser(@RequestBody UsuarioDTO usuarioDTO, @PathVariable("id") String idUsuario){
     	return usuarioService.actualizarUsuario(usuarioDTO, idUsuario);    	
     }
+
+    @PutMapping("/usuarios/suscribe/{id_cartelera}/{username}")
+    public ResponseEntity<?> suscribe(@PathVariable("id_cartelera") Integer id_cartelera, @PathVariable("username") String username) {
+        return usuarioService.suscribe(id_cartelera, username);
+    }
     
+    @PutMapping("/usuarios/unsuscribe/{id_cartelera}/{username}")
+    public ResponseEntity<?> unsuscribe(@PathVariable("id_cartelera") Integer id_cartelera, @PathVariable("username") String username) {
+        return usuarioService.unsuscribe(id_cartelera, username);
+    }
+
 }

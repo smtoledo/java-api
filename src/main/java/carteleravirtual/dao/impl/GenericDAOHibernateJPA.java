@@ -70,5 +70,11 @@ public abstract class GenericDAOHibernateJPA<T, ID> implements GenericDAO<T, ID>
 		return (List<T>) consulta.getResultList();
 	}
 	
-	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> recuperarTodosDonde(String where, String columnOrder) {
+		Query consulta = getEntityManager()
+				.createQuery("select e from "+this.persistentClass.getSimpleName() + " e " + where + " order by e."+columnOrder);
+		return (List<T>) consulta.getResultList();
+	}
 }
