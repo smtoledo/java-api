@@ -53,8 +53,8 @@ public class UsuarioService {
 		return new ResponseEntity<>(userDTOs, HttpStatus.OK);
     }
     
-    public ResponseEntity<?> actualizarUsuario(UsuarioDTO usuarioDTO, String idUsuario) {
-			Usuario usuario = usuarioDao.recuperarPorId(Integer.parseInt(idUsuario));
+    public ResponseEntity<?> actualizarUsuario(UsuarioDTO usuarioDTO) {
+			Usuario usuario = usuarioDao.recuperarPorId(usuarioDTO.getId());
 			if (usuario != null) {    			
 				usuario.setNombre(usuarioDTO.getNombre());
 				usuario.setApellido(usuarioDTO.getApellido());

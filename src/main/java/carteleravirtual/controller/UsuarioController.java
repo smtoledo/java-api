@@ -38,9 +38,9 @@ public class UsuarioController {
     	return usuarioService.recuperarUsuario(idUsuario);
     }
     
-    @PutMapping("/usuarios/{id}")
-    public ResponseEntity<?> updateUser(@RequestBody UsuarioDTO usuarioDTO, @PathVariable("id") String idUsuario){
-    	return usuarioService.actualizarUsuario(usuarioDTO, idUsuario);    	
+    @PutMapping("/usuarios")
+    public ResponseEntity<?> updateUser(@RequestBody UsuarioDTO usuario){
+    	return usuarioService.actualizarUsuario(usuario);    	
     }
 
     @PutMapping("/usuarios/suscribe/{id_cartelera}/{username}")
