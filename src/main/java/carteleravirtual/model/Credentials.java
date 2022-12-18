@@ -1,7 +1,5 @@
 package carteleravirtual.model;
 
-import java.util.Set;
-
 import carteleravirtual.common.Perfil;
 
 public class Credentials {

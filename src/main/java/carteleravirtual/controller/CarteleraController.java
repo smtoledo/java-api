@@ -127,7 +127,7 @@ public class CarteleraController {
     		@PathVariable("id_cartelera") Integer id_cartelera,
     		@PathVariable("id_publicacion") Integer id_publicacion,
     		@RequestHeader (name="Authorization") String token) {
-    	String username = TokenService.getUsernameFromToken(token);
+    	// String username = TokenService.getUsernameFromToken(token);
         return null;//publicacionService.agregarComentario(comentarioDTO, id_cartelera, id_publicacion, username);
     }
         	
