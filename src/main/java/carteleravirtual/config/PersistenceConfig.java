@@ -38,7 +38,7 @@ public class PersistenceConfig {
 		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
 		driverManagerDataSource.setUsername("root");
 		driverManagerDataSource.setPassword("");
-		driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/cartelera_virtual");
+		driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/cartelera?useSSL=false");
 		driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		return driverManagerDataSource;
 	}
@@ -55,7 +55,7 @@ public class PersistenceConfig {
 		Properties properties = new Properties();		
 		properties.setProperty("hibernate.hbm2ddl.auto", "update");
 		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
-		properties.setProperty("hibernate.default_schema", "cartelera_virtual");
+		properties.setProperty("hibernate.default_schema", "cartelera");
 		properties.setProperty("hibernate.event.merge.entity_copy_observer", "allow");
 		return properties;
 	}

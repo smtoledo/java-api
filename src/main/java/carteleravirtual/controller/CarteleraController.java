@@ -130,21 +130,5 @@ public class CarteleraController {
     	String username = TokenService.getUsernameFromToken(token);
         return null;//publicacionService.agregarComentario(comentarioDTO, id_cartelera, id_publicacion, username);
     }
-    
-    /** ********************** SUSCRIPTOS *****************/
-    
-    @PutMapping("/carteleras/{id_cartelera}/suscribe")
-    public ResponseEntity<?> suscribe(@PathVariable("id_cartelera") Integer id_cartelera, 
-    		@RequestHeader (name="Authorization") String token) {
-    	String username = TokenService.getUsernameFromToken(token);
-        return carteleraService.suscribe(id_cartelera, username);
-    }
-    
-    @PutMapping("/carteleras/{id_cartelera}/unsuscribe")
-    public ResponseEntity<?> unsuscribe(@PathVariable("id_cartelera") Integer id_cartelera, 
-    		@RequestHeader (name="Authorization") String token) {
-    	String username = TokenService.getUsernameFromToken(token);
-        return carteleraService.unsuscribe(id_cartelera, username);
-    }
-    	
+        	
 }

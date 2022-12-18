@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import carteleravirtual.common.Perfil;
 import carteleravirtual.common.TokenValidator;
 import carteleravirtual.dao.CarteleraVirtualDAO;
 import carteleravirtual.dao.UsuarioDAO;
@@ -111,7 +112,7 @@ public class UsuarioService {
     
     private Usuario toEntity(UsuarioDTO dto) {
     	Usuario u = modelmapper.map(dto, Usuario.class);
-    	//u.setPerfil(Perfil.fromNombre(dto.getPerfil()));
+    	u.setPerfil(Perfil.fromNombre(dto.getPerfil()));
     	return u;
     }
 

@@ -1,6 +1,7 @@
 package carteleravirtual.service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -107,35 +108,4 @@ public class CarteleraService {
 		return Perfil.values();
 	}
 	
-    public ResponseEntity<?> suscribe(Integer id_cartelera, String username){
-    	CarteleraVirtual cartelera = carteleraDAO.recuperarPorId(id_cartelera);
-    	Usuario usuario = usuarioDAO.recuperar(username);
-    	if (cartelera != null && usuario != null) {
-    		try {
-    			cartelera.addInteresado(usuario);;
-    			carteleraDAO.actualizar(cartelera);
-    		}catch(Exception e) {
-    			return new ResponseEntity<CarteleraDTO>(modelmapper.map(cartelera, CarteleraDTO.class), HttpStatus.NOT_MODIFIED);
-    		}
-    		return new ResponseEntity<CarteleraDTO>(modelmapper.map(cartelera, CarteleraDTO.class), HttpStatus.OK);
-    	}else {
-    		return new ResponseEntity<CarteleraDTO>(modelmapper.map(cartelera, CarteleraDTO.class), HttpStatus.NOT_MODIFIED);
-    	}    	
-    }
-
-    public ResponseEntity<?> unsuscribe(Integer id_cartelera, String username){
-    	CarteleraVirtual cartelera = carteleraDAO.recuperarPorId(id_cartelera);
-    	Usuario usuario = usuarioDAO.recuperar(username);
-    	if (cartelera != null && usuario != null) {
-    		try {
-    			cartelera.removeInteresado(usuario);;
-    			carteleraDAO.actualizar(cartelera);
-    		}catch(Exception e) {
-    			return new ResponseEntity<CarteleraDTO>(modelmapper.map(cartelera, CarteleraDTO.class), HttpStatus.NOT_MODIFIED);
-    		}
-    		return new ResponseEntity<CarteleraDTO>(modelmapper.map(cartelera, CarteleraDTO.class), HttpStatus.OK);
-    	}else {
-    		return new ResponseEntity<CarteleraDTO>(modelmapper.map(cartelera, CarteleraDTO.class), HttpStatus.NOT_MODIFIED);
-    	}    	
-    }
 }

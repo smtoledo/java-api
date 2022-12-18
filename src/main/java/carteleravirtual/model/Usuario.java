@@ -202,7 +202,7 @@ public class Usuario implements Serializable {
 	}
 	
 	public void removePreferidas(CarteleraVirtual cartelera) {
-		this.preferidas.remove(cartelera);
+		this.preferidas.removeIf(c -> c.getId() == cartelera.getId());
 	}
 
 	@Override
