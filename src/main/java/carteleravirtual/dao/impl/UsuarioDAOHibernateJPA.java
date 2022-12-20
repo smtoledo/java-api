@@ -1,5 +1,7 @@
 package carteleravirtual.dao.impl;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -45,6 +47,18 @@ public class UsuarioDAOHibernateJPA<T> extends GenericDAOHibernateJPA<Usuario,In
 		consulta.setParameter(1, id);
 		try {
 			return (Usuario) consulta.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Usuario> recuperarPorCartelera(Integer cartelera_id) {
+		Query consulta = this.getEntityManager()
+				.createQuery("SELECT u FROM Usuario u "+
+					" WHERE " + cartelera_id + " MEMBER OF u.preferidas");
+		try {
+			return (List<Usuario>) consulta.getResultList();
 		} catch (NoResultException e) {
 			return null;
 		}

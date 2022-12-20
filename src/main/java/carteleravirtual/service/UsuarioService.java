@@ -103,7 +103,13 @@ public class UsuarioService {
     		return new ResponseEntity<UsuarioDTO>(modelmapper.map(usuario, UsuarioDTO.class), HttpStatus.NOT_MODIFIED);
     	}
 	}
-	    
+
+	public ResponseEntity<?> recuperarUsuariosSuscriptos(Integer cartelera_id){
+		List<UsuarioDTO> userDTOs = usuarioDao.recuperarPorCartelera(cartelera_id).stream()
+				.map(user -> modelmapper.map(user, UsuarioDTO.class)).collect(Collectors.toList());
+		return new ResponseEntity<>(userDTOs, HttpStatus.OK);
+	}
+	
     private UsuarioDTO toDTO(Usuario u) {
     	UsuarioDTO uDTO = modelmapper.map(u, UsuarioDTO.class);
     	uDTO.setPerfil(u.getPerfil().getNombre());

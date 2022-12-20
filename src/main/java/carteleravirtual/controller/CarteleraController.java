@@ -72,18 +72,12 @@ public class CarteleraController {
     }
     /** ********************** SUSCRIPTORES/INTERESADOS *****************/
     
-    @GetMapping("/carteleras/{id}/interesados")
+    /**@GetMapping("/carteleras/{id}/interesados")
     @ResponseBody
     public ResponseEntity<?> recuperarInteresados(@PathVariable("id") Integer id){
     	return null; //carteleraService.recuperarCarteleras();
-    }
-    
-    @PostMapping("/carteleras/{id}/interesados")
-    public ResponseEntity<?> suscribirInteresado(@RequestBody UsuarioDTO userDTO,
-    		@PathVariable("id") Long id) {
-        return null; //to do
-    }
-    
+    }*/
+        
     /** ********************** PUBLICACIONES *****************/
     
     @PostMapping("/carteleras/{id_cartelera}/publicaciones")
@@ -122,13 +116,13 @@ public class CarteleraController {
         return publicacionService.recuperarComentarios(id_publicacion);
     }
     
-    @PutMapping("/carteleras/{id_cartelera}/publicaciones/{id_publicacion}/comentarios")
+    /**@PutMapping("/carteleras/{id_cartelera}/publicaciones/{id_publicacion}/comentarios")
     public ResponseEntity<?> updateComentario(@RequestBody ComentarioDTO comentarioDTO,
     		@PathVariable("id_cartelera") Integer id_cartelera,
     		@PathVariable("id_publicacion") Integer id_publicacion,
     		@RequestHeader (name="Authorization") String token) {
     	// String username = TokenService.getUsernameFromToken(token);
         return null;//publicacionService.agregarComentario(comentarioDTO, id_cartelera, id_publicacion, username);
-    }
+    }*/
         	
 }

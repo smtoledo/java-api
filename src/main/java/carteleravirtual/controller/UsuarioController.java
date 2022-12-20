@@ -32,6 +32,12 @@ public class UsuarioController {
     	return usuarioService.recuperarUsuarios();
     }
     
+    @GetMapping("/suscriptores/{cartelera_id}")
+    @ResponseBody
+    public ResponseEntity<?> recuperarUsuariosSuscriptos(@PathVariable("cartelera_id") Integer cartelera_id){
+    	return usuarioService.recuperarUsuariosSuscriptos(cartelera_id);
+    }
+
     @GetMapping("/usuarios/{id}") //ok
     public ResponseEntity<?> recuperarUsuario(@PathVariable("id") String idUsuario){
     	return usuarioService.recuperarUsuario(idUsuario);
