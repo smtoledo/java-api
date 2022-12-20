@@ -58,4 +58,9 @@ public class UsuarioController {
         return usuarioService.unsuscribe(id_cartelera, username);
     }
 
+    @PutMapping("/usuarios/updateCuenta/{id_usuario}/{value}")
+    public ResponseEntity<?> updateCuenta(@PathVariable("id_usuario") Integer id_usuario, @PathVariable("value") Integer value) {
+        return usuarioService.updateCuenta(id_usuario, value);
+    }
+
 }

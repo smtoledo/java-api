@@ -34,7 +34,7 @@ public class UsuarioDAOHibernateJPA<T> extends GenericDAOHibernateJPA<Usuario,In
 	@Override
 	public Usuario recuperar(String username) {
 		TypedQuery<Usuario> consulta = this.getEntityManager()
-				.createQuery("SELECT u FROM Usuario u WHERE u.username = :user", Usuario.class);
+				.createQuery("SELECT u FROM Usuario u WHERE u.username = :user and u.cuentaActiva=1", Usuario.class);
 		consulta.setParameter("user", username);
 		Usuario usuario = consulta.getResultList().stream().findFirst().orElse(null); 
 		return usuario;

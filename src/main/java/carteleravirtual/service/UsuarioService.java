@@ -109,6 +109,22 @@ public class UsuarioService {
 				.map(user -> modelmapper.map(user, UsuarioDTO.class)).collect(Collectors.toList());
 		return new ResponseEntity<>(userDTOs, HttpStatus.OK);
 	}
+
+	public ResponseEntity<?> updateCuenta(Integer idUsuario, Integer value){
+		Usuario usuario = usuarioDao.recuperarPorId(idUsuario.intValue());
+		
+    	if (usuario != null) {
+    		try {
+				usuario.setCuentaActiva(value.intValue());
+				usuarioDao.actualizar(usuario);				
+    		}catch(Exception e) {
+    			return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    		}
+    		return new ResponseEntity<>(HttpStatus.OK);
+    	}else {
+    		return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    	}
+	}
 	
     private UsuarioDTO toDTO(Usuario u) {
     	UsuarioDTO uDTO = modelmapper.map(u, UsuarioDTO.class);

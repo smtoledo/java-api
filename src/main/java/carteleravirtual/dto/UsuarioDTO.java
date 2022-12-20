@@ -2,15 +2,16 @@ package carteleravirtual.dto;
 
 public class UsuarioDTO {
 
-	private int id;	
+	private int id;
 	private String username;
-	private String password;	
+	private String password;
 	private String nombre;
 	private String apellido;
-	private String email;	
-	private int dni;	
+	private String email;
+	private int dni;
 	private String perfil;
-	
+	private int cuentaActiva;
+
 	public int getId() {
 		return id;
 	}
@@ -59,5 +60,10 @@ public class UsuarioDTO {
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
 	}
-	
+	public int getCuentaActiva() {
+		return cuentaActiva;
+	}
+	public void setCuentaActiva(int cuentaActiva) {
+		this.cuentaActiva = cuentaActiva;
+	}
 }
