@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import carteleravirtual.common.Perfil;
 import carteleravirtual.common.TokenValidator;
 import carteleravirtual.dao.CarteleraVirtualDAO;
 import carteleravirtual.dao.PublicacionDAO;
@@ -103,8 +102,8 @@ public class CarteleraService {
     	return new ResponseEntity<>(listDtos.stream().filter(p -> p.getId() == id_publicacion.intValue()).findFirst().orElse(null), HttpStatus.OK);
     }
     
-	public Perfil[] recuperarTiposCartelera() {
-		return Perfil.values();
-	}
+	// public ResponseEntity<?> recuperarTiposCartelera() {
+	// 	return new ResponseEntity<>(Perfil.values());
+	// }
 	
 }
